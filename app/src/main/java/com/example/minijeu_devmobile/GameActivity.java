@@ -26,7 +26,7 @@ public class GameActivity extends AppCompatActivity {
     private int score = 0;
 
     private static Random random = new Random();
-    private static String[] operations = {"+", "-", "*", "/"};
+    private static String[] operations = {"+", "-", "*"};
 
     private Button button0, button1, button2, button3, button4, button5,button6, button7, button8, button9;
     private Button buttonplus, buttonminus,buttonmult, buttondiv;
@@ -36,10 +36,10 @@ public class GameActivity extends AppCompatActivity {
     private Integer deuxiemeElement=0;
     private Integer calculTotal=0;
     private String typeOperation=null;
-    private CalculDao calculDao;
     private TextView scoreTextView;
     private TextView calculTextView;
     private String currentCalcul;
+    private TextView resultatTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +64,10 @@ public class GameActivity extends AppCompatActivity {
         button9 = findViewById(R.id.button_9);
         scoreTextView = findViewById(R.id.score);
         calculTextView = findViewById(R.id.calcul_text);
+        resultatTextView = findViewById(R.id.resultat_text);
 
         genererNouveauCalcul();
+        afficherResultat();
 
         bonneReponse();
 
@@ -90,6 +92,12 @@ public class GameActivity extends AppCompatActivity {
         currentCalcul = premierElement + " " + typeOperation + " " + deuxiemeElement;
         calculTextView.setText(currentCalcul);
     }
+
+    private void afficherResultat(){
+        String resultat = resultatCalcul(currentCalcul) + "";
+        resultatTextView.setText(resultat);
+    }
+
 
     public static int genererNombreAleatoire(int min, int max) {
         return random.nextInt(max - min + 1) + min;

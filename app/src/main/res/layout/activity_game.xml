@@ -68,6 +68,12 @@
                 android:layout_height="wrap_content"
                 android:text="CALCUL" />
 
+            <TextView
+                android:id="@+id/resultat_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Resultat" />
+
         </LinearLayout>
 
         <LinearLayout
