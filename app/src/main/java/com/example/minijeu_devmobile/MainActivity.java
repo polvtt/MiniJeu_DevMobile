@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity {
         boutonMain = findViewById(R.id.buttonToGame);
         boutonMain.setOnClickListener(view -> {
             Intent intent = new Intent(this,GameActivity.class);
-            startActivity(intent);
             Toast.makeText(this,"Amusez vous bien ;)",Toast.LENGTH_LONG).show();
+            startActivity(intent);
         });
     }
 
