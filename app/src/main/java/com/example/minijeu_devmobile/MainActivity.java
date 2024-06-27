@@ -15,7 +15,6 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
 
     private Button boutonMain;
-    private int score = 0;
     private TextView scoreTextView;
 
     @Override
@@ -32,11 +31,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void bonneReponse() {
-        score++;
-    }
 
-    public int getScore() {
-        return score;
-    }
+
+
 }

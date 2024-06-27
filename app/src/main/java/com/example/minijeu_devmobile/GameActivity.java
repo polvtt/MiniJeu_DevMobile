@@ -15,24 +15,34 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.minijeu_devmobile.database.CalculBaseHelper;
+import com.example.minijeu_devmobile.database.CalculDao;
 import com.example.minijeu_devmobile.entities.Calcul;
 
+import java.util.Random;
+
 public class GameActivity extends AppCompatActivity {
-    private Button button0, button1, button2, button3, button4, button5,button6, button7, button8, button9, buttonRetour;
+
+    private int score = 0;
+
+    private static Random random = new Random();
+    private static String[] operations = {"+", "-", "*", "/"};
+
+    private Button button0, button1, button2, button3, button4, button5,button6, button7, button8, button9;
+    private Button buttonplus, buttonminus,buttonmult, buttondiv;
 
     private TextView textCalcul;
     private Integer premierElement=0;
     private Integer deuxiemeElement=0;
     private Integer calculTotal=0;
-    private TypeOperation typeOperation=null;
+    private String typeOperation=null;
+    private CalculDao calculDao;
+    private TextView scoreTextView;
+    private TextView calculTextView;
+    private String currentCalcul;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        buttonRetour.setOnClickListener(view -> {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        });
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_game);
@@ -52,6 +62,12 @@ public class GameActivity extends AppCompatActivity {
         button7 = findViewById(R.id.button_7);
         button8 = findViewById(R.id.button_8);
         button9 = findViewById(R.id.button_9);
+        scoreTextView = findViewById(R.id.score);
+        calculTextView = findViewById(R.id.calcul_text);
+
+        genererNouveauCalcul();
+
+        bonneReponse();
 
         textCalcul = findViewById(R.id.text_calcul);
         button0.setOnClickListener(view -> appuieChiffre("0"));
@@ -64,6 +80,49 @@ public class GameActivity extends AppCompatActivity {
         button7.setOnClickListener(view -> appuieChiffre("7"));
         button8.setOnClickListener(view -> appuieChiffre("8"));
         button9.setOnClickListener(view -> appuieChiffre("9"));
+    }
+
+    private void genererNouveauCalcul() {
+        premierElement=genererNombreAleatoire(0,10);
+        deuxiemeElement=genererNombreAleatoire(0,10);
+        typeOperation=genererSymboleAleatoire();
+
+        currentCalcul = premierElement + " " + typeOperation + " " + deuxiemeElement;
+        calculTextView.setText(currentCalcul);
+    }
+
+    public static int genererNombreAleatoire(int min, int max) {
+        return random.nextInt(max - min + 1) + min;
+    }
+
+    public static String genererSymboleAleatoire() {
+        int index = random.nextInt(operations.length);
+        return operations[index];
+    }
+
+    public static int resultatCalcul(String calcul) {
+        //reçoit en paramètre un calcul sous format string et séparé par des espaces
+        String[] elements = calcul.split(" ");
+        int num1 = Integer.parseInt(elements[0]);
+        String operateur = elements[1];
+        int num2 = Integer.parseInt(elements[2]);
+
+        switch (operateur) {
+            case "+":
+                return num1 + num2;
+            case "-":
+                return num1 - num2;
+            case "*":
+                return num1 * num2;
+            case "/":
+                if (num2 != 0) {
+                    return num1 / num2;
+                } else {
+                    throw new IllegalArgumentException("Division par zéro !");
+                }
+            default:
+                throw new IllegalArgumentException("Opérateur non valide !");
+        }
     }
 
     private void ajouteCharactere(String CharactereAAjouter){
@@ -79,9 +138,15 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    private void appuieType(TypeOperation typeOperation){
-        ajouteCharactere(typeOperation.getSymbole());
-        this.typeOperation = typeOperation;
+
+
+    public void bonneReponse() {
+        score++;
+        scoreTextView.setText(""+score);
+    }
+
+    public int getScore() {
+        return score;
     }
 
     /** @Override
@@ -97,38 +162,6 @@ public class GameActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     } **/
 
-    private boolean calculer() {
-        Calcul calcul = new Calcul();
-        calcul.setPremierElement(premierElement);
-        calcul.setDeuxiemeElement(deuxiemeElement);
-        calcul.setSymbol(typeOperation.getSymbole());
-        switch (typeOperation){
-            case PLUS:
-                calculTotal = premierElement + deuxiemeElement;
-                premierElement = calculTotal;
-                deuxiemeElement = 0;
-                break;
-            case SUBSTRACT:
-                calculTotal = premierElement - deuxiemeElement;
-                premierElement = calculTotal;
-                deuxiemeElement = 0;
-                break;
-            case MULTIPLY:
-                calculTotal = premierElement * deuxiemeElement;
-                premierElement = calculTotal;
-                deuxiemeElement = 0;
-                break;
-            case DIVIDE:
-                calculTotal = premierElement / deuxiemeElement;
-                premierElement = calculTotal;
-                deuxiemeElement = 0;
-                break;
-        }
-        calcul.setResultat(calculTotal);
-        textCalcul.setText("");
-        Toast.makeText(this,"Le resultat est : "+calculTotal,Toast.LENGTH_LONG).show();
-        return true;
-    }
 
     private boolean vide() {
         textCalcul.setText("");
@@ -138,7 +171,5 @@ public class GameActivity extends AppCompatActivity {
         typeOperation = null;
         return true;
     }
-
-
 
 }
