@@ -40,5 +40,4 @@ public class Utilitaire {
                 throw new IllegalArgumentException("Opérateur non valide !");
         }
     }
-
 }

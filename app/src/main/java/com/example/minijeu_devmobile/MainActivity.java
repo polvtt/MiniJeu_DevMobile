@@ -3,6 +3,7 @@ package com.example.minijeu_devmobile;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -14,6 +15,8 @@ import androidx.core.view.WindowInsetsCompat;
 public class MainActivity extends AppCompatActivity {
 
     private Button boutonMain;
+    private int score = 0;
+    private TextView scoreTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,5 +30,13 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             Toast.makeText(this,"Amusez vous bien ;)",Toast.LENGTH_LONG).show();
         });
+    }
+
+    public void bonneReponse() {
+        score++;
+    }
+
+    public int getScore() {
+        return score;
     }
 }
