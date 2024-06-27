@@ -15,8 +15,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.minijeu_devmobile.database.CalculBaseHelper;
-import com.example.minijeu_devmobile.database.CalculDao;
 import com.example.minijeu_devmobile.entities.Calcul;
 
 import java.util.Random;
