@@ -63,12 +63,6 @@ public class GameActivity extends AppCompatActivity {
         button7.setOnClickListener(view -> appuieChiffre("7"));
         button8.setOnClickListener(view -> appuieChiffre("8"));
         button9.setOnClickListener(view -> appuieChiffre("9"));
-        buttonplus.setOnClickListener(view -> appuieType(TypeOperation.PLUS));
-        buttonminus.setOnClickListener(view -> appuieType(TypeOperation.SUBSTRACT));
-        buttonmult.setOnClickListener(view -> appuieType(TypeOperation.MULTIPLY));
-        buttondiv.setOnClickListener(view -> appuieType(TypeOperation.DIVIDE));
-        calculDao = new CalculDao(new CalculBaseHelper(this,"db",1));
-
     }
 
     private void ajouteCharactere(String CharactereAAjouter){
