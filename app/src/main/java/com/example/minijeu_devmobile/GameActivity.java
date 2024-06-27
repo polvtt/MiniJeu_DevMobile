@@ -15,23 +15,24 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.minijeu_devmobile.database.CalculBaseHelper;
-import com.example.minijeu_devmobile.database.CalculDao;
 import com.example.minijeu_devmobile.entities.Calcul;
 
 public class GameActivity extends AppCompatActivity {
-    private Button button0, button1, button2, button3, button4, button5,button6, button7, button8, button9;
-    private Button buttonplus, buttonminus,buttonmult, buttondiv;
+    private Button button0, button1, button2, button3, button4, button5,button6, button7, button8, button9, buttonRetour;
 
     private TextView textCalcul;
     private Integer premierElement=0;
     private Integer deuxiemeElement=0;
     private Integer calculTotal=0;
     private TypeOperation typeOperation=null;
-    private CalculDao calculDao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        buttonRetour.setOnClickListener(view -> {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        });
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_game);
@@ -124,7 +125,6 @@ public class GameActivity extends AppCompatActivity {
                 break;
         }
         calcul.setResultat(calculTotal);
-        calculDao.create(calcul);
         textCalcul.setText("");
         Toast.makeText(this,"Le resultat est : "+calculTotal,Toast.LENGTH_LONG).show();
         return true;
@@ -138,5 +138,7 @@ public class GameActivity extends AppCompatActivity {
         typeOperation = null;
         return true;
     }
+
+
 
 }
