@@ -35,9 +35,10 @@ public class NameActivity extends AppCompatActivity {
 
         button_home.setOnClickListener(view ->{
             ajoutEnBase(player_name, scoreFinal);
-            Intent intent = new Intent(this, MainActivity.class);
-                }
-                );
+            Intent intent = new Intent(this,MainActivity.class);
+            startActivity(intent);
+            }
+            );
     }
 
     private void ajoutEnBase(String player_name, int score){
