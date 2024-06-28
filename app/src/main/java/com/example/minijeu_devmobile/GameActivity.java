@@ -206,14 +206,10 @@ public class GameActivity extends AppCompatActivity {
                 Toast.makeText(this, "Incorrect ! Vies restantes : $vies", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Game Over ! Score final : $score", Toast.LENGTH_SHORT).show();
-                /*Intent intent = new Intent(this, NameActivity.class);
-                startActivity(intent);}*/
-                Intent intent = new Intent(this,NameActivity.class);
-                Toast.makeText(this,"",Toast.LENGTH_LONG).show();
-                startActivity(intent);
+                Intent intent = new Intent(this, NameActivity.class);
+                startActivity(intent);}
         }
     }
-        }
 
     private void mettreAJourVies() {
         switch (vies) {
