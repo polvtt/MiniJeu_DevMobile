@@ -189,9 +189,7 @@ public class GameActivity extends AppCompatActivity {
             genererNouveauCalcul();
             afficherResultat();
             clearReponse();
-        }else if (textReponse.getText().toString().equals("")){
-            Toast.makeText(this, "Veuillez entrer une réponse", Toast.LENGTH_SHORT).show();
-        }else{
+        }else {
             clearReponse();
             vies--;
             mettreAJourVies();
@@ -199,9 +197,8 @@ public class GameActivity extends AppCompatActivity {
                 Toast.makeText(this, "Incorrect ! Vies restantes : $vies", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Game Over ! Score final : $score", Toast.LENGTH_SHORT).show();
-                buttonValider.setEnabled(false); // Désactiver le bouton après la fin du jeu
-
-            }
+                Intent intent = new Intent(this, NameActivity.class);
+                startActivity(intent);}
         }
     }
 
