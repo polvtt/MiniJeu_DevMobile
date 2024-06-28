@@ -101,6 +101,7 @@ public class GameActivity extends AppCompatActivity {
             Toast.makeText(this,"",Toast.LENGTH_LONG).show();
             startActivity(intent);
         });
+        resetJeu();
 
     }
 
@@ -120,6 +121,7 @@ public class GameActivity extends AppCompatActivity {
     private void afficherResultat(){
         String resultat = resultatCalcul(currentCalcul) + "";
         resultatTextView.setText(resultat);
+        resultatTextView.setVisibility(View.INVISIBLE);
     }
 
 
@@ -211,9 +213,9 @@ public class GameActivity extends AppCompatActivity {
                 Intent intent = new Intent(this,NameActivity.class);
                 Toast.makeText(this,"",Toast.LENGTH_LONG).show();
                 startActivity(intent);
+            }
         }
     }
-        }
 
     private void mettreAJourVies() {
         switch (vies) {
@@ -230,7 +232,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-    private boolean resetJeu() {
+    public boolean resetJeu() {
         textReponse.setText("");
         premierElement = 0;
         deuxiemeElement = 0;

@@ -15,6 +15,7 @@ import com.example.minijeu_devmobile.database.ScoreBaseHelper;
 import com.example.minijeu_devmobile.database.ScoreDao;
 import com.example.minijeu_devmobile.entities.Score;
 
+
 public class NameActivity extends AppCompatActivity {
 
     ScoreDao baseDAO;
@@ -35,10 +36,8 @@ public class NameActivity extends AppCompatActivity {
 
         button_home.setOnClickListener(view ->{
             ajoutEnBase(player_name, scoreFinal);
-            Intent intent = new Intent(this,MainActivity.class);
-            startActivity(intent);
-            }
-            );
+            retourMenu();
+            });
     }
 
     private void ajoutEnBase(String player_name, int score){
@@ -46,4 +45,10 @@ public class NameActivity extends AppCompatActivity {
         baseDAO = new ScoreDao(new ScoreBaseHelper(this, "scoreTable", 1));
         baseDAO.create(resultat);
     }
+
+    private void retourMenu(){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
 }
