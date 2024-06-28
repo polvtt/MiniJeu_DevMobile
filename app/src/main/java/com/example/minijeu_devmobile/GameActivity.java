@@ -30,7 +30,7 @@ public class GameActivity extends AppCompatActivity {
     private static String[] operations = {"+", "-", "*"};
 
     private Button button0, button1, button2, button3, button4, button5,button6, button7, button8, button9;
-    private Button buttonSupprimer, buttonValider;
+    private Button buttonRetour, buttonSupprimer, buttonValider;
 
     private TextView textReponse;
     private Integer premierElement=0;
@@ -68,6 +68,7 @@ public class GameActivity extends AppCompatActivity {
         button7 = findViewById(R.id.button_7);
         button8 = findViewById(R.id.button_8);
         button9 = findViewById(R.id.button_9);
+        buttonRetour = findViewById(R.id.buttonRetour);
         buttonSupprimer = findViewById(R.id.button_supprimer);
         buttonValider = findViewById(R.id.button_valider);
         scoreTextView = findViewById(R.id.score);
@@ -79,8 +80,6 @@ public class GameActivity extends AppCompatActivity {
 
         genererNouveauCalcul();
         afficherResultat();
-
-        bonneReponse();
 
         textReponse = findViewById(R.id.text_reponse);
         button0.setOnClickListener(view -> appuieChiffre("0"));
@@ -95,6 +94,14 @@ public class GameActivity extends AppCompatActivity {
         button9.setOnClickListener(view -> appuieChiffre("9"));
         buttonSupprimer.setOnClickListener(view -> clearReponse());
         buttonValider.setOnClickListener(view -> validerReponse());
+
+        buttonRetour.setOnClickListener(view -> {
+            resetJeu();
+            Intent intent = new Intent(this,MainActivity.class);
+            Toast.makeText(this,"",Toast.LENGTH_LONG).show();
+            startActivity(intent);
+        });
+
     }
 
     private void genererNouveauCalcul() {
@@ -220,12 +227,13 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-    private boolean vide() {
+    private boolean resetJeu() {
         textReponse.setText("");
         premierElement = 0;
         deuxiemeElement = 0;
         calculTotal = 0;
         typeOperation = null;
+        buttonValider.setEnabled(true);
         return true;
     }
 
