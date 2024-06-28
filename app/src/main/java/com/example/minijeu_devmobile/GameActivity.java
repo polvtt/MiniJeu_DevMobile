@@ -196,7 +196,9 @@ public class GameActivity extends AppCompatActivity {
             genererNouveauCalcul();
             afficherResultat();
             clearReponse();
-        }else {
+        }else if (textReponse.getText().toString().equals("")){
+            Toast.makeText(this, "Veuillez entrer une réponse", Toast.LENGTH_SHORT).show();
+        }else{
             clearReponse();
             vies--;
             mettreAJourVies();
