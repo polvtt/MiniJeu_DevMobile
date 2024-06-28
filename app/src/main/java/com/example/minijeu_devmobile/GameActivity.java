@@ -1,21 +1,14 @@
 package com.example.minijeu_devmobile;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
-import com.example.minijeu_devmobile.entities.Calcul;
 
 import java.util.Random;
 
@@ -27,14 +20,13 @@ public class GameActivity extends AppCompatActivity {
     private static String[] operations = {"+", "-", "*", "/"};
 
     private Button button0, button1, button2, button3, button4, button5,button6, button7, button8, button9;
-    private Button buttonplus, buttonminus,buttonmult, buttondiv;
 
     private TextView textCalcul;
+    private TextView textCalculSend;
     private Integer premierElement=0;
     private Integer deuxiemeElement=0;
     private Integer calculTotal=0;
     private String typeOperation=null;
-    private CalculDao calculDao;
     private TextView scoreTextView;
     private TextView calculTextView;
     private String currentCalcul;
@@ -61,7 +53,7 @@ public class GameActivity extends AppCompatActivity {
         button8 = findViewById(R.id.button_8);
         button9 = findViewById(R.id.button_9);
         scoreTextView = findViewById(R.id.score);
-        calculTextView = findViewById(R.id.calcul_text);
+        calculTextView = findViewById(R.id.text_calcul);
 
         genererNouveauCalcul();
 
@@ -124,7 +116,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void ajouteCharactere(String CharactereAAjouter){
-        textCalcul.setText(textCalcul.getText() + CharactereAAjouter);
+        textCalculSend.setText(textCalculSend.getText() + CharactereAAjouter);
     }
 
     private void appuieChiffre(String chiffre){
@@ -135,7 +127,6 @@ public class GameActivity extends AppCompatActivity {
             deuxiemeElement = 10*deuxiemeElement + Integer.parseInt(chiffre);
         }
     }
-
 
 
     public void bonneReponse() {
