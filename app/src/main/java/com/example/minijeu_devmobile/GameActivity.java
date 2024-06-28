@@ -1,14 +1,21 @@
 package com.example.minijeu_devmobile;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.minijeu_devmobile.entities.Calcul;
 
 import java.util.Random;
 
@@ -17,12 +24,12 @@ public class GameActivity extends AppCompatActivity {
     private int score = 0;
 
     private static Random random = new Random();
-    private static String[] operations = {"+", "-", "*", "/"};
+    private static String[] operations = {"+", "-", "*"};
 
     private Button button0, button1, button2, button3, button4, button5,button6, button7, button8, button9;
+    private Button buttonplus, buttonminus,buttonmult, buttondiv;
 
-    private TextView textCalcul;
-    private TextView textCalculSend;
+    private TextView textReponse;
     private Integer premierElement=0;
     private Integer deuxiemeElement=0;
     private Integer calculTotal=0;
@@ -30,6 +37,7 @@ public class GameActivity extends AppCompatActivity {
     private TextView scoreTextView;
     private TextView calculTextView;
     private String currentCalcul;
+    private TextView resultatTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +61,15 @@ public class GameActivity extends AppCompatActivity {
         button8 = findViewById(R.id.button_8);
         button9 = findViewById(R.id.button_9);
         scoreTextView = findViewById(R.id.score);
-        calculTextView = findViewById(R.id.text_calcul);
+        calculTextView = findViewById(R.id.calcul_text);
+        resultatTextView = findViewById(R.id.resultat_text);
 
         genererNouveauCalcul();
+        afficherResultat();
 
         bonneReponse();
 
-        textCalcul = findViewById(R.id.text_calcul);
+        textReponse = findViewById(R.id.text_reponse);
         button0.setOnClickListener(view -> appuieChiffre("0"));
         button1.setOnClickListener(view -> appuieChiffre("1"));
         button2.setOnClickListener(view -> appuieChiffre("2"));
@@ -80,6 +90,12 @@ public class GameActivity extends AppCompatActivity {
         currentCalcul = premierElement + " " + typeOperation + " " + deuxiemeElement;
         calculTextView.setText(currentCalcul);
     }
+
+    private void afficherResultat(){
+        String resultat = resultatCalcul(currentCalcul) + "";
+        resultatTextView.setText(resultat);
+    }
+
 
     public static int genererNombreAleatoire(int min, int max) {
         return random.nextInt(max - min + 1) + min;
@@ -116,7 +132,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void ajouteCharactere(String CharactereAAjouter){
-        textCalculSend.setText(textCalculSend.getText() + CharactereAAjouter);
+        textReponse.setText(textReponse.getText() + CharactereAAjouter);
     }
 
     private void appuieChiffre(String chiffre){
@@ -127,6 +143,7 @@ public class GameActivity extends AppCompatActivity {
             deuxiemeElement = 10*deuxiemeElement + Integer.parseInt(chiffre);
         }
     }
+
 
 
     public void bonneReponse() {
@@ -153,7 +170,7 @@ public class GameActivity extends AppCompatActivity {
 
 
     private boolean vide() {
-        textCalcul.setText("");
+        textReponse.setText("");
         premierElement = 0;
         deuxiemeElement = 0;
         calculTotal = 0;
