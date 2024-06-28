@@ -29,7 +29,7 @@ public class GameActivity extends AppCompatActivity {
     private Button button0, button1, button2, button3, button4, button5,button6, button7, button8, button9;
     private Button buttonplus, buttonminus,buttonmult, buttondiv;
 
-    private TextView textCalcul;
+    private TextView textReponse;
     private Integer premierElement=0;
     private Integer deuxiemeElement=0;
     private Integer calculTotal=0;
@@ -69,7 +69,7 @@ public class GameActivity extends AppCompatActivity {
 
         bonneReponse();
 
-        textCalcul = findViewById(R.id.text_calcul);
+        textReponse = findViewById(R.id.text_reponse);
         button0.setOnClickListener(view -> appuieChiffre("0"));
         button1.setOnClickListener(view -> appuieChiffre("1"));
         button2.setOnClickListener(view -> appuieChiffre("2"));
@@ -132,7 +132,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void ajouteCharactere(String CharactereAAjouter){
-        textCalcul.setText(textCalcul.getText() + CharactereAAjouter);
+        textReponse.setText(textReponse.getText() + CharactereAAjouter);
     }
 
     private void appuieChiffre(String chiffre){
@@ -170,7 +170,7 @@ public class GameActivity extends AppCompatActivity {
 
 
     private boolean vide() {
-        textCalcul.setText("");
+        textReponse.setText("");
         premierElement = 0;
         deuxiemeElement = 0;
         calculTotal = 0;
