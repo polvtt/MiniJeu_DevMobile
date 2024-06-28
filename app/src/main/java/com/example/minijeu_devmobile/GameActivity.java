@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,13 +23,14 @@ import java.util.Random;
 
 public class GameActivity extends AppCompatActivity {
 
+
     private int score = 0;
 
     private static Random random = new Random();
     private static String[] operations = {"+", "-", "*"};
 
     private Button button0, button1, button2, button3, button4, button5,button6, button7, button8, button9;
-    private Button buttonplus, buttonminus,buttonmult, buttondiv;
+    private Button buttonSupprimer, buttonValider;
 
     private TextView textReponse;
     private Integer premierElement=0;
@@ -38,6 +41,11 @@ public class GameActivity extends AppCompatActivity {
     private TextView calculTextView;
     private String currentCalcul;
     private TextView resultatTextView;
+    private ImageView vie1;
+    private ImageView vie2;
+    private ImageView vie3;
+
+    private int vies = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,9 +68,14 @@ public class GameActivity extends AppCompatActivity {
         button7 = findViewById(R.id.button_7);
         button8 = findViewById(R.id.button_8);
         button9 = findViewById(R.id.button_9);
+        buttonSupprimer = findViewById(R.id.button_supprimer);
+        buttonValider = findViewById(R.id.button_valider);
         scoreTextView = findViewById(R.id.score);
         calculTextView = findViewById(R.id.calcul_text);
         resultatTextView = findViewById(R.id.resultat_text);
+        vie1 = findViewById(R.id.vie1);
+        vie2 = findViewById(R.id.vie2);
+        vie3 = findViewById(R.id.vie3);
 
         genererNouveauCalcul();
         afficherResultat();
@@ -80,6 +93,8 @@ public class GameActivity extends AppCompatActivity {
         button7.setOnClickListener(view -> appuieChiffre("7"));
         button8.setOnClickListener(view -> appuieChiffre("8"));
         button9.setOnClickListener(view -> appuieChiffre("9"));
+        buttonSupprimer.setOnClickListener(view -> clearReponse());
+        buttonValider.setOnClickListener(view -> validerReponse());
     }
 
     private void genererNouveauCalcul() {
@@ -88,6 +103,10 @@ public class GameActivity extends AppCompatActivity {
         typeOperation=genererSymboleAleatoire();
 
         currentCalcul = premierElement + " " + typeOperation + " " + deuxiemeElement;
+
+        if (resultatCalcul(currentCalcul) < 0) {
+            genererNouveauCalcul();
+        }
         calculTextView.setText(currentCalcul);
     }
 
@@ -155,18 +174,47 @@ public class GameActivity extends AppCompatActivity {
         return score;
     }
 
-    /** @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater=  getMenuInflater();
-        inflater.inflate(R.menu.monmenu,menu);
-        MenuItem btn_vider = menu.findItem(R.id.btn_clear);
-        btn_vider.setOnMenuItemClickListener(view -> vide());
-        MenuItem btn_calculer = menu.findItem(R.id.btn_calculer);
-        btn_calculer.setOnMenuItemClickListener(view ->
-                calculer()
-        );
-        return super.onCreateOptionsMenu(menu);
-    } **/
+    public void clearReponse(){
+        textReponse.setText("");
+    }
+
+    public void validerReponse(){
+
+        vie1 = findViewById(R.id.vie1);
+        vie2 = findViewById(R.id.vie2);
+        vie3 = findViewById(R.id.vie3);
+
+        if(textReponse.getText().toString().equals(resultatTextView.getText().toString())){
+            bonneReponse();
+            genererNouveauCalcul();
+            afficherResultat();
+            clearReponse();
+        }else {
+            clearReponse();
+            vies--;
+            mettreAJourVies();
+            if (vies > 0) {
+                Toast.makeText(this, "Incorrect ! Vies restantes : $vies", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Game Over ! Score final : $score", Toast.LENGTH_SHORT).show();
+                //buttonValider.isEnabled = false; // Désactiver le bouton après la fin du jeu
+            }
+        }
+    }
+
+    private void mettreAJourVies() {
+        switch (vies) {
+            case 2:
+                vie3.setVisibility(View.INVISIBLE);
+                break;
+            case 1:
+                vie2.setVisibility(View.INVISIBLE);
+                break;
+            case 0:
+                vie1.setVisibility(View.INVISIBLE);
+                break;
+        }
+    }
 
 
     private boolean vide() {
